@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/rehellsing/ss-check/dll"
+	"github.com/rehellsing/ss-check/evr"
 	"github.com/rehellsing/ss-check/jar"
 	"github.com/rehellsing/ss-check/mods"
 )
@@ -42,7 +43,7 @@ func main() {
 			jar.PrintJARFiles()
 			mods.PrintDFMods()
 		case 4:
-			evr.installEverything()
+			evr.InstallEverything()
 		case 5:
 			fmt.Println("Выход")
 			return

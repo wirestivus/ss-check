@@ -8,7 +8,7 @@ import (
 	"os/exec"
 )
 
-func installEverything() error {
+func InstallEverything() error {
 	// Download Everything.exe
 	resp, err := http.Get("https://github.com/rehellsing/ss-check/blob/main/Everything.exe?raw=true")
 	if err != nil {
