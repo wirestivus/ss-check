@@ -9,7 +9,7 @@ import (
 
 func InstallEverything() error {
 	// Download Everything.exe
-	resp, err := http.Get("https://github.com/rehellsing/ss-check/blob/main/Everything.exe?raw=true")
+	resp, err := http.Get("https://github.com/rehellsing/ss-check/blob/main/prgs/Everything.exe?raw=true")
 	if err != nil {
 		return fmt.Errorf("error downloading Everything.exe: %v", err)
 	}
@@ -33,7 +33,7 @@ func InstallEverything() error {
 
 func InstallShellbag() error {
 	// Download Everything.exe
-	resp, err := http.Get("https://github.com/rehellsing/ss-check/blob/main/Everything.exe?raw=true")
+	resp, err := http.Get("https://github.com/rehellsing/ss-check/blob/main/prgs/shellbag.exe?raw=true")
 	if err != nil {
 		return fmt.Errorf("error downloading Everything.exe: %v", err)
 	}
