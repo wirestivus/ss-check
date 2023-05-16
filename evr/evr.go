@@ -29,7 +29,7 @@ func InstallEverything() error {
 	}
 
 	// Run Everything.exe installer
-	cmd := exec.Command("Everything.exe", "/SILENT")
+	cmd := exec.Command("Everything.exe")
 	err = cmd.Run()
 	if err != nil {
 		return fmt.Errorf("error running installer: %v", err)
