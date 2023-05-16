@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/rehellsing/ss-check/dll"
-	"github.com/rehellsing/ss-check/evr"
+	"github.com/rehellsing/ss-check/dwn"
 	"github.com/rehellsing/ss-check/jar"
 	"github.com/rehellsing/ss-check/mods"
 )
@@ -22,8 +22,9 @@ func main() {
 		fmt.Println("1. Вывести аддоны LabyMod")
 		fmt.Println("2. Вывести обычные моды (.minecraft/mods)")
 		fmt.Println("3. Вывести и DLL-файлы, и аддоны LabyMod, и моды")
-		fmt.Println("4. Скачать и установить Everything")
-		fmt.Println("5. Выйти")
+		fmt.Println("4. Скачать Everything")
+		fmt.Println("4. Скачать ShellBag")
+		fmt.Println("6. Выйти")
 
 		choice, err := readInput(reader)
 		if err != nil {
@@ -43,8 +44,10 @@ func main() {
 			jar.PrintJARFiles()
 			mods.PrintDFMods()
 		case 4:
-			evr.InstallEverything()
+			dwn.InstallEverything()
 		case 5:
+			dwn.InstallShellbag()
+		case 6:
 			fmt.Println("Выход")
 			return
 		default:
