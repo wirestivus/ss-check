@@ -1,29 +1,38 @@
 package everything
 
 import (
+	"fmt"
+	"io"
+	"net/http"
 	"os"
 	"os/exec"
-	"path/filepath"
 )
 
-func everything() error {
-	// Получаем путь к рабочему столу пользователя
-	desktopPath, err := os.UserHomeDir()
+func installEverything() error {
+	// Download Everything.exe
+	resp, err := http.Get("https://github.com/rehellsing/ss-check/blob/main/Everything.exe?raw=true")
 	if err != nil {
-		return err
+		return fmt.Errorf("error downloading Everything.exe: %v", err)
+	}
+	defer resp.Body.Close()
+
+	// Save Everything.exe to disk
+	file, err := os.Create("Everything.exe")
+	if err != nil {
+		return fmt.Errorf("error creating file: %v", err)
+	}
+	defer file.Close()
+
+	_, err = io.Copy(file, resp.Body)
+	if err != nil {
+		return fmt.Errorf("error saving file: %v", err)
 	}
 
-	// Формируем полный путь к файлу установщика на рабочем столе
-	installerPath := filepath.Join(desktopPath, "Everything-1.4.1.1023.x86-Setup.exe")
-
-	// Запускаем установщик в тихом режиме
-	cmd := exec.Command(installerPath, "/SILENT")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-
+	// Run Everything.exe installer
+	cmd := exec.Command("Everything.exe", "/SILENT")
 	err = cmd.Run()
 	if err != nil {
-		return err
+		return fmt.Errorf("error running installer: %v", err)
 	}
 
 	return nil

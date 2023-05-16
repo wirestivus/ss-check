@@ -21,7 +21,8 @@ func main() {
 		fmt.Println("1. Вывести аддоны LabyMod")
 		fmt.Println("2. Вывести обычные моды (.minecraft/mods)")
 		fmt.Println("3. Вывести и DLL-файлы, и аддоны LabyMod, и моды")
-		fmt.Println("4. Выйти")
+		fmt.Println("4. Скачать и установить Everything")
+		fmt.Println("5. Выйти")
 
 		choice, err := readInput(reader)
 		if err != nil {
@@ -41,6 +42,8 @@ func main() {
 			jar.PrintJARFiles()
 			mods.PrintDFMods()
 		case 4:
+			everything.installEverything()
+		case 5:
 			fmt.Println("Выход")
 			return
 		default:
