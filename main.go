@@ -42,7 +42,7 @@ func main() {
 			jar.PrintJARFiles()
 			mods.PrintDFMods()
 		case 4:
-			everything.installEverything()
+			evr.installEverything()
 		case 5:
 			fmt.Println("Выход")
 			return
