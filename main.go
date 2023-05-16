@@ -6,7 +6,6 @@ import (
 
 	"github.com/rehellsing/ss-check/dll"
 	"github.com/rehellsing/ss-check/jar"
-	"github.com/rehellsing/ss-check/process"
 )
 
 func main() {
