@@ -23,7 +23,7 @@ func main() {
 		fmt.Println("2. Вывести обычные моды (.minecraft/mods)")
 		fmt.Println("3. Вывести и DLL-файлы, и аддоны LabyMod, и моды")
 		fmt.Println("4. Скачать Everything")
-		fmt.Println("4. Скачать ShellBag")
+		fmt.Println("5. Скачать ShellBag")
 		fmt.Println("6. Выйти")
 
 		choice, err := readInput(reader)
