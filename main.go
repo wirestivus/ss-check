@@ -11,10 +11,16 @@ import (
 	"github.com/rehellsing/ss-check/dwn"
 	"github.com/rehellsing/ss-check/jar"
 	"github.com/rehellsing/ss-check/mods"
+	"github.com/rehellsing/ss-check/richpresence"
 )
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
+
+	err := richpresence.SetupRichPresence()
+	if err != nil {
+		panic(err)
+	}
 
 	for {
 		fmt.Println("Выберите действие:")
