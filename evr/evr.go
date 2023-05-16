@@ -1,4 +1,4 @@
-package everything
+package evr
 
 import (
 	"fmt"
