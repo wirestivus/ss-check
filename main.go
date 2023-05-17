@@ -12,6 +12,7 @@ import (
 	"github.com/rehellsing/ss-check/dwn"
 	"github.com/rehellsing/ss-check/jar"
 	"github.com/rehellsing/ss-check/mods"
+	"github.com/rehellsing/ss-check/softs"
 )
 
 func main() {
@@ -49,6 +50,7 @@ func main() {
 			dll.PrintDLLFiles()
 			jar.PrintJARFiles()
 			mods.PrintDFMods()
+			softs.Meteor()
 		case 4:
 			dwn.InstallEverything()
 		case 5:
