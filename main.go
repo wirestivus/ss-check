@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/rehellsing/ss-check/bich"
 	"github.com/rehellsing/ss-check/dll"
@@ -22,6 +23,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	var wg sync.WaitGroup
 
 	for {
 		fmt.Println("Выберите действие:")
@@ -41,19 +44,49 @@ func main() {
 
 		switch choice {
 		case 0:
-			dll.PrintDLLFiles()
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				dll.PrintDLLFiles()
+			}()
 		case 1:
-			jar.PrintJARFiles()
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				jar.PrintJARFiles()
+			}()
 		case 2:
-			mods.PrintDFMods()
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				mods.PrintDFMods()
+			}()
 		case 3:
-			dll.PrintDLLFiles()
-			jar.PrintJARFiles()
-			mods.PrintDFMods()
+			wg.Add(3)
+			go func() {
+				defer wg.Done()
+				dll.PrintDLLFiles()
+			}()
+			go func() {
+				defer wg.Done()
+				jar.PrintJARFiles()
+			}()
+			go func() {
+				defer wg.Done()
+				mods.PrintDFMods()
+			}()
 		case 4:
-			dwn.InstallEverything()
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				dwn.InstallEverything()
+			}()
 		case 5:
-			dwn.InstallShellbag()
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				dwn.InstallShellbag()
+			}()
 		case 6:
 			fmt.Println("Выход")
 			return
@@ -64,6 +97,8 @@ func main() {
 		fmt.Println("Нажмите Enter для продолжения.")
 		fmt.Scanln()
 	}
+
+	wg.Wait()
 }
 
 func readInput(reader *bufio.Reader) (int, error) {
