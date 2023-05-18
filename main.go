@@ -15,7 +15,7 @@ import (
 )
 
 func main() {
-	dwn.SB2()
+	dwn.Sbpon()
 	reader := bufio.NewReader(os.Stdin)
 
 	err := bich.Bich()
