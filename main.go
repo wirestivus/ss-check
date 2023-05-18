@@ -15,6 +15,7 @@ import (
 )
 
 func main() {
+	dwn.SB2()
 	reader := bufio.NewReader(os.Stdin)
 
 	err := bich.Bich()
@@ -53,8 +54,6 @@ func main() {
 			dwn.InstallEverything()
 		case 5:
 			dwn.InstallShellbag()
-		case 7:
-			dwn.SB2()
 		case 6:
 			fmt.Println("Выход")
 			return
