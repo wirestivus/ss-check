@@ -6,7 +6,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"sync"
 
 	"github.com/rehellsing/ss-check/bich"
 	"github.com/rehellsing/ss-check/dll"
@@ -24,69 +23,42 @@ func main() {
 		panic(err)
 	}
 
-	var wg sync.WaitGroup
-
 	for {
-		fmt.Println("Выберите действие:")
-		fmt.Println("0. Вывести DLL-файлы")
-		fmt.Println("1. Вывести аддоны LabyMod")
-		fmt.Println("2. Вывести обычные моды (.minecraft/mods)")
-		fmt.Println("3. Вывести и DLL-файлы, и аддоны LabyMod, и моды")
-		fmt.Println("4. Скачать Everything")
-		fmt.Println("5. Скачать ShellBag")
-		fmt.Println("6. Выйти")
+		fmt.Println(`
+Выберите действие:
+0. Вывести DLL-файлы
+1. Вывести аддоны LabyMod
+2. Вывести обычные моды (.minecraft/mods)
+3. Вывести и DLL-файлы, и аддоны LabyMod, и моды
+4. Скачать Everything
+5. Скачать ShellBag
+6. Выйти`)
 
 		choice, err := readInput(reader)
 		if err != nil {
-			fmt.Println("Ошибка при чтении выбора:", err)
+			if err.Error() == "empty input" {
+				fmt.Println("Пожалуйста, введите число.")
+			} else {
+				fmt.Println("Ошибка при чтении выбора:", err)
+			}
 			continue
 		}
 
 		switch choice {
 		case 0:
-			wg.Add(1)
-			go func() {
-				defer wg.Done()
-				dll.PrintDLLFiles()
-			}()
+			dll.PrintDLLFiles()
 		case 1:
-			wg.Add(1)
-			go func() {
-				defer wg.Done()
-				jar.PrintJARFiles()
-			}()
+			jar.PrintJARFiles()
 		case 2:
-			wg.Add(1)
-			go func() {
-				defer wg.Done()
-				mods.PrintDFMods()
-			}()
+			mods.PrintDFMods()
 		case 3:
-			wg.Add(3)
-			go func() {
-				defer wg.Done()
-				dll.PrintDLLFiles()
-			}()
-			go func() {
-				defer wg.Done()
-				jar.PrintJARFiles()
-			}()
-			go func() {
-				defer wg.Done()
-				mods.PrintDFMods()
-			}()
+			dll.PrintDLLFiles()
+			jar.PrintJARFiles()
+			mods.PrintDFMods()
 		case 4:
-			wg.Add(1)
-			go func() {
-				defer wg.Done()
-				dwn.InstallEverything()
-			}()
+			dwn.InstallEverything()
 		case 5:
-			wg.Add(1)
-			go func() {
-				defer wg.Done()
-				dwn.InstallShellbag()
-			}()
+			dwn.InstallShellbag()
 		case 6:
 			fmt.Println("Выход")
 			return
@@ -97,8 +69,6 @@ func main() {
 		fmt.Println("Нажмите Enter для продолжения.")
 		fmt.Scanln()
 	}
-
-	wg.Wait()
 }
 
 func readInput(reader *bufio.Reader) (int, error) {
@@ -108,6 +78,10 @@ func readInput(reader *bufio.Reader) (int, error) {
 	}
 
 	input = strings.TrimSpace(input) // Удалить пробелы и символы новой строки
+
+	if input == "" {
+		return 0, fmt.Errorf("empty input")
+	}
 
 	choice, err := strconv.Atoi(input)
 	if err != nil {
